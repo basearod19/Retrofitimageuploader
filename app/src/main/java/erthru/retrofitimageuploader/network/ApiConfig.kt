@@ -12,11 +12,13 @@ class ApiConfig{
 
     companion object {
 
+        // base url dari end point.
         const val BASE_URL = "http://192.168.43.39/anows/retrofitimageuploader/"
         const val IMAGE_URL = BASE_URL+"image/"
 
     }
 
+    // ini retrofit
     private fun retrofit() : Retrofit{
         return Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -24,6 +26,7 @@ class ApiConfig{
                 .build()
     }
 
+    // buat sebuah instance untuk call sebuah interface dari retrofit.
     fun instance() : ApiInterface {
 
         return retrofit().create(ApiInterface::class.java)
@@ -33,25 +36,26 @@ class ApiConfig{
 
 }
 
+// interface dari retrofit
 interface ApiInterface{
 
 
     @Multipart
-    @POST("upload.php")
+    @POST("upload.php") // end point dari upload
     fun upload(
 
             @Part imagename:MultipartBody.Part
 
-    ) : Call<Default>
+    ) : Call<Default> // memanggil response model 'Default'
 
-    @GET("gallery.php")
-    fun gallery() : Call<Gallery>
+    @GET("gallery.php") // end point untuk menampilkan semua data
+    fun gallery() : Call<Gallery> // memanggil response model 'Gallery'
 
-    @GET("delete.php")
+    @GET("delete.php") // end point untuk menghapus data
     fun delete(
 
             @Query("imageid") imageid:String?
 
-    ) : Call<Default>
+    ) : Call<Default> // memanggil response model 'Default'
 
 }
